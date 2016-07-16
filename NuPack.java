@@ -94,4 +94,9 @@ public class NuPack
     {
         return 1 + numOfPeeps*HUMAN_RESOURCE_MARKUP + productType.GetValue();
     }
+
+    public String CalculateMarkupPricing(String input)
+    {
+        return "heh";
+    }
 }

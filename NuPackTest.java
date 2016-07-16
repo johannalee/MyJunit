@@ -71,4 +71,34 @@ public class NuPackTest
 
         assertEquals(expected, actual, 2);
     }
+
+    @Test
+    public void TestCalculateMakrupPricing_GivenExample1()
+    {
+        String expected = "$1,591.58";
+        String input = "$1,299.99, 3 people, food";
+        String actual = nupack.CalculateMarkupPricing(input);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestCalculateMakrupPricing_GivenExample2()
+    {
+        String expected = "$6,199.81";
+        String input = "$5,432.00, 1 person, drugs";
+        String actual = nupack.CalculateMarkupPricing(input);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void TestCalculateMakrupPricing_GivenExample3()
+    {
+        String expected = "$13,707.63";
+        String input = "$12,456.95, 4 people, books";
+        String actual = nupack.CalculateMarkupPricing(input);
+
+        assertEquals(expected, actual);
+    }
 }
