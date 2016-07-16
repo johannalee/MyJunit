@@ -47,12 +47,26 @@ public class NuPackTest
     @Test
     public void TestGetBasePrice_ValidReturn()
     {
-        double expected = 1299.99*0.05;
-        double actual = 0;
+        BigDecimal expected = BigDecimal.valueOf(1364.99);
+        BigDecimal actual = BigDecimal.valueOf(0);
 
         if (nupack.ParseInputString("$1,299.99, 3 people, food"))
         {
             actual = nupack.GetBasePrice();
+        }
+
+        assertEquals(expected.doubleValue(), actual.doubleValue(), 2);
+    }
+
+    @Test
+    public void TestGetMarkup_ReturnCorrectValue()
+    {
+        double expected = 1.17;
+        double actual = 0;
+
+        if (nupack.ParseInputString("$1,299.99, 3 people, food"))
+        {
+            actual = nupack.GetMarkup();
         }
 
         assertEquals(expected, actual, 2);

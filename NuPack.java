@@ -28,7 +28,7 @@ public class NuPack
     private ProductType productType;
 
     // Properties
-    public static final double BASE_MARKUP = 0.05;
+    public static final double BASE_MARKUP = 1.05;
     public static final double HUMAN_RESOURCE_MARKUP = 0.012;
 
     public int GetNumOfPeeps() { return numOfPeeps; }
@@ -85,10 +85,13 @@ public class NuPack
         return true;
     }
 
-    public double GetBasePrice()
+    public BigDecimal GetBasePrice()
     {
-        return price.doubleValue()*BASE_MARKUP;
+        return price.multiply(BigDecimal.valueOf(BASE_MARKUP));
     }
 
-    // public
+    public double GetMarkup()
+    {
+        return 1 + numOfPeeps*HUMAN_RESOURCE_MARKUP + productType.GetValue();
+    }
 }
