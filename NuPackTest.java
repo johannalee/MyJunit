@@ -26,10 +26,16 @@ public class NuPackTest
     }
 
     @Test
-    public void TestParseInputString()
+    public void TestParseInputString_VlaidStringReturnTrue()
     {
-        boolean actual = nupack.ParseInputString("hello");
-        assertEquals(false, actual);
+        boolean actual = nupack.ParseInputString("$1,299.99, 3 people, food");
+        assertEquals(true, actual);
     }
 
+    @Test
+    public void TestParseInputString_InvlaidStringReturnFalse()
+    {
+        boolean actual = nupack.ParseInputString("$1,299.99, 3 people, food, gg");
+        assertEquals(false, actual);
+    }
 }
