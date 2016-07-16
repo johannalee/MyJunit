@@ -23,7 +23,6 @@ enum ProductType
 
 public class NuPack
 {
-
     // Fields
     private int numOfPeeps;
     private BigDecimal price;
