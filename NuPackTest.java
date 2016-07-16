@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class NuPackTest
 {
@@ -13,7 +14,7 @@ public class NuPackTest
     double price;
     int numOfPeople;
     ProductType pt;
-
+    public static final int DECIMALS = 2;
     @Before
     public void Setup()
     {
@@ -24,7 +25,7 @@ public class NuPackTest
     public void TestProductTypeConstructor()
     {
         pt = ProductType.DRUGS;
-        assertEquals(0.075, pt.GetValue(), 2);
+        assertEquals(0.075, pt.GetValue(), DECIMALS);
     }
 
     @Test
@@ -32,7 +33,7 @@ public class NuPackTest
     {
         boolean actual = nupack.ParseInputString("$1,299.99, 3 people, food");
         assertEquals(true, actual);
-        assertEquals(1299.99, nupack.GetPrice().doubleValue(), 2);
+        assertEquals(1299.99, nupack.GetPrice().doubleValue(), DECIMALS);
         assertEquals(3, nupack.GetNumOfPeeps());
         assertEquals(ProductType.FOOD, nupack.GetProductType());
     }
@@ -55,7 +56,7 @@ public class NuPackTest
             actual = nupack.GetBasePrice();
         }
 
-        assertEquals(expected.doubleValue(), actual.doubleValue(), 2);
+        assertEquals(expected.setScale(DECIMALS, RoundingMode.HALF_UP), actual.setScale(DECIMALS, RoundingMode.HALF_UP));
     }
 
     @Test
@@ -69,7 +70,15 @@ public class NuPackTest
             actual = nupack.GetMarkup();
         }
 
-        assertEquals(expected, actual, 2);
+        assertEquals(expected, actual, DECIMALS);
+    }
+
+    @Test
+    public void TestConvertBigDecimalToMoneyFormat()
+    {
+        String actual = "$13,707,999.70";
+        String expected = nupack.ConvertBigDecimalToMoneyFormat(new BigDecimal(13707999.699993));
+        assertEquals(expected, actual);
     }
 
     @Test

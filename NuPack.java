@@ -1,4 +1,6 @@
+import java.math.RoundingMode;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class NuPack
     // Properties
     public static final double BASE_MARKUP = 1.05;
     public static final double HUMAN_RESOURCE_MARKUP = 0.012;
+    DecimalFormat df = new DecimalFormat("$#,###.00");
 
     public int GetNumOfPeeps() { return numOfPeeps; }
     public BigDecimal GetPrice() { return price; }
@@ -95,8 +98,20 @@ public class NuPack
         return 1 + numOfPeeps*HUMAN_RESOURCE_MARKUP + productType.GetValue();
     }
 
+    public String ConvertBigDecimalToMoneyFormat(BigDecimal value)
+    {
+        String s = df.format(value);
+        return s;
+    }
+
     public String CalculateMarkupPricing(String input)
     {
-        return "heh";
+        if (ParseInputString(input))
+        {
+            BigDecimal markupPricing = GetBasePrice().multiply(BigDecimal.valueOf(GetMarkup())).setScale(2, RoundingMode.HALF_UP);
+            return ConvertBigDecimalToMoneyFormat(markupPricing);
+        }
+
+        return null;
     }
 }
