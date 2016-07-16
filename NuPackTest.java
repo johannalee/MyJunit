@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 public class NuPackTest
 {
     NuPack nupack;
@@ -26,10 +28,13 @@ public class NuPackTest
     }
 
     @Test
-    public void TestParseInputString_VlaidStringReturnTrue()
+    public void TestParseInputString_ValidStringReturnTrue()
     {
         boolean actual = nupack.ParseInputString("$1,299.99, 3 people, food");
         assertEquals(true, actual);
+        assertEquals(1299.99, nupack.GetPrice().doubleValue(), 2);
+        assertEquals(3, nupack.GetNumOfPeeps());
+        assertEquals(ProductType.FOOD, nupack.GetProductType());
     }
 
     @Test

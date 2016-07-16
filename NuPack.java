@@ -31,6 +31,10 @@ public class NuPack
     public static final double BASE_MARKUP = 0.05;
     public static final double HUMAN_RESOURCE_MARKUP = 0.012;
 
+    public int GetNumOfPeeps() { return numOfPeeps; }
+    public BigDecimal GetPrice() { return price; }
+    public ProductType GetProductType() { return productType; }
+
     // Methods
     public boolean ParseInputString(String input)
     {
@@ -43,23 +47,28 @@ public class NuPack
 
         try
         {
+            // parse first item, the price
             String s = list.get(0);
             price = new BigDecimal(s.replaceAll("[\\$\\,]",""));
 
+            // second item, the number of people to work on the job
             s = list.get(1).split(" ")[0];
             numOfPeeps = Integer.parseInt(s);
 
-            s = list.get(2).toUpperCase();
+            // thrid item, the product type
+            s = list.get(2).toUpperCase().trim();
 
-            if (s == "FOOD")
+            // System.console().writer().println(s);
+
+            if (s.equals("FOOD"))
             {
                 productType = ProductType.FOOD;
             }
-            else if (s == "ELECTRONICS")
+            else if (s.equals("ELECTRONICS"))
             {
                 productType = ProductType.ELECTRONICS;
             }
-            else if (s == "DRUGS")
+            else if (s.equals("DRUGS"))
             {
                 productType = ProductType.DRUGS;
             }
