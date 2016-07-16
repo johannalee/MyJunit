@@ -84,4 +84,11 @@ public class NuPack
 
         return true;
     }
+
+    public double GetBasePrice()
+    {
+        return price.doubleValue()*BASE_MARKUP;
+    }
+
+    // public
 }

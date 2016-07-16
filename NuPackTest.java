@@ -43,4 +43,18 @@ public class NuPackTest
         boolean actual = nupack.ParseInputString("$1,299.99, 3 people, food, gg");
         assertEquals(false, actual);
     }
+
+    @Test
+    public void TestGetBasePrice_ValidReturn()
+    {
+        double expected = 1299.99*0.05;
+        double actual = 0;
+
+        if (nupack.ParseInputString("$1,299.99, 3 people, food"))
+        {
+            actual = nupack.GetBasePrice();
+        }
+
+        assertEquals(expected, actual, 2);
+    }
 }
